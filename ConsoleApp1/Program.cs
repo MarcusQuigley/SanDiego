@@ -8,16 +8,18 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             TestLesson1();
-            Console.ReadLine();
+          //  Console.ReadLine();
         }
 
         static void TestLesson1()
         {
             Lesson1 lesson = new Lesson1();
-            if (lesson.StressTest(25, 1000000))
+            if (lesson.StressTest(5, 10))
             {
                 Console.WriteLine("Stress test passed!!");
             }
+
+        
         }
     }
 }
