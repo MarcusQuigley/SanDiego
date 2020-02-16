@@ -2,7 +2,7 @@ using Chap1.AlgorithmicToolbox;
 using System;
 using Xunit;
 
-namespace XUnitTestProject1
+namespace Chap1.AlgorithmicToolbox.Tests
 {
     public class Lesson2Tests : IDisposable
     {
@@ -20,7 +20,7 @@ namespace XUnitTestProject1
         [InlineData(0, 0)]
         [InlineData(1, 1)]
         [InlineData(4, 3)]
-        [InlineData(6, 8)]
+        [InlineData(28, 317811)]
         public void FibonacciTest(int n, long expectedResult)
         {
             var actualResult = week2.Fibonacci(n);
