@@ -4,13 +4,13 @@ using Xunit;
 
 namespace XUnitTestProject1
 {
-    public class Lesson1Tests : IDisposable
+    public class Week1Tests : IDisposable
     {
-        Lesson1 lesson1;
+        Week1 lesson1;
         Random rand;
-        public Lesson1Tests()
+        public Week1Tests()
         {
-            lesson1 = new Lesson1();
+            lesson1 = new Week1();
             rand = new Random();
         }
 

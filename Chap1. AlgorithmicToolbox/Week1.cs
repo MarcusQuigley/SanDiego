@@ -2,7 +2,7 @@
 
 namespace Chap1.AlgorithmicToolbox
 {
-    public class Lesson1 :ILesson
+    public class Week1 :ILesson
     {
 
         public long SumDigits(int value1, int value2)
@@ -68,7 +68,7 @@ namespace Chap1.AlgorithmicToolbox
             Random rand = new Random();
             int testCount = 1000;
             int count = 0;
-            Lesson1 lesson1 = new Lesson1();
+            Week1 lesson1 = new Week1();
             do
             {
                 var arrayLength = rand.Next(2, maxArraySize);

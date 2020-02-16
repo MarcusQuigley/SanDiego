@@ -13,7 +13,7 @@ namespace ConsoleApp1
 
         static void TestLesson1()
         {
-            Lesson1 lesson = new Lesson1();
+            Week1 lesson = new Week1();
             if (lesson.StressTest(5, 10))
             {
                 Console.WriteLine("Stress test passed!!");
