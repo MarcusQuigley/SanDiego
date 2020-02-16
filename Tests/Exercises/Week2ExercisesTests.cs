@@ -25,5 +25,29 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
             var actualResult = sut.Fibonacci(n);
             Assert.Equal(expectedResult, actualResult);
         }
+
+        [Theory]
+        [InlineData(15, 0)]
+        [InlineData(7, 3)]
+        [InlineData(11, 9)]
+        [InlineData(2, 1)]
+        [InlineData(13, 3)]
+        [InlineData(331, 9)]
+        public void CheckLastDigitOfFibonacci(int n, int expectedResult)
+        {
+            var actualResult = sut.LastDigitOfFibonacci(n);
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1344, 217 }, 7)]
+        [InlineData(new int[] { 18, 35 }, 1)]
+        [InlineData(new int[] { 28851538, 1183019 }, 17657)]
+        [InlineData(new int[] { 3918848, 1653264 }, 61232)]
+        public void CheckGreatestCommonDivisor(int[] values, int expectedResult)
+        {
+            var actualResult = sut.GreatestCommonDivisor(values);
+            Assert.Equal(expectedResult, actualResult);
+        }
     }
 }
