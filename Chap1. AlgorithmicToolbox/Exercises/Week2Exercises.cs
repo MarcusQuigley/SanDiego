@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Chap1.AlgorithmicToolbox.Exercises
@@ -56,5 +57,50 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             }
             return b;
          }
+
+        public long LeastCommonMultipleBruteForce(int [] values)
+        {
+            if (values == null || values.Length != 2) throw new ArgumentException(nameof(values));
+            
+            int a = values.Min();
+            int b = values.Max();
+            int tempa = a;
+            int tempb = b;
+            if (b % a == 0) return a;
+            
+            List<int> aValues = new List<int>();
+            List<int> bValues = new List<int>();
+            int counter = 1;
+       
+            while (true)
+            {
+              
+                aValues.Add(a);
+                bValues.Add(b );
+
+                for (int i = 0; i < aValues.Count; i++)
+                {
+                    if (b < aValues[i])
+                        break;
+                    if (b == aValues[i])
+                        return b;
+                }
+
+                for (int i = 0; i < bValues.Count; i++)
+                {
+                    if (a < bValues[i])
+                        break;
+                    if (a == bValues[i])
+                        return a;
+                }
+
+                counter += 1;
+                a = tempa * counter;
+                b = tempb * counter;
+            }
+           // return result;
+        }
+
+
     }    
 }
