@@ -101,6 +101,11 @@ namespace Chap1.AlgorithmicToolbox.Exercises
            // return result;
         }
 
-
+        public long LeastCommonMultiple(int[] values)
+        {
+            if (values == null || values.Length != 2) throw new ArgumentException(nameof(values));
+            int gcm = GreatestCommonDivisor(values);
+            return (values[0] * (long)values[1]) / gcm;
+        }
     }    
 }

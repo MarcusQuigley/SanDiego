@@ -55,9 +55,19 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
        [InlineData(new int[] { 18, 35 }, 630)]
          [InlineData(new int[] { 28851538, 1183019 }, 1933053046)]
          [InlineData(new int[] { 2, 5 }, 10)]
-        public void CheckLeastCommonMultiple(int[] values, int expectedResult)
+        public void CheckLeastCommonMultipleBruteForce(int[] values, int expectedResult)
         {
             var actualResult = sut.LeastCommonMultipleBruteForce(values);
+            Assert.Equal(expectedResult, actualResult);
+        }
+        [Theory]
+        [InlineData(new int[] { 6, 8 }, 24)]
+        [InlineData(new int[] { 18, 35 }, 630)]
+        [InlineData(new int[] { 28851538, 1183019 }, 1933053046)]
+        [InlineData(new int[] { 2, 5 }, 10)]
+        public void CheckLeastCommonMultiple(int[] values, long expectedResult)
+        {
+            var actualResult = sut.LeastCommonMultiple(values);
             Assert.Equal(expectedResult, actualResult);
         }
     }
