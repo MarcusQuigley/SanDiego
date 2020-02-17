@@ -61,14 +61,24 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
             Assert.Equal(expectedResult, actualResult);
         }
         [Theory]
-        //[InlineData(new int[] { 6, 8 }, 24)]
-        //[InlineData(new int[] { 18, 35 }, 630)]
-        //[InlineData(new int[] { 28851538, 1183019 }, 1933053046)]
-        //[InlineData(new int[] { 2, 5 }, 10)]
+        [InlineData(new int[] { 6, 8 }, 24)]
+        [InlineData(new int[] { 18, 35 }, 630)]
+        [InlineData(new int[] { 28851538, 1183019 }, 1933053046)]
+        [InlineData(new int[] { 2, 5 }, 10)]
         [InlineData(new int[] { 1000, 0 }, 0)]
         public void CheckLeastCommonMultiple(int[] values, long expectedResult)
         {
             var actualResult = sut.LeastCommonMultiple(values);
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Theory]
+        [InlineData(2015, 3,1)]
+        [InlineData(239, 1000, 161)]
+        [InlineData(2816213588, 239, 151)]
+        public void CheckFibonacciModulus(int n, int modulus,  int expectedResult)
+        {
+            var actualResult = sut.FibonacciModulus(n, modulus);
             Assert.Equal(expectedResult, actualResult);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Chap1.AlgorithmicToolbox;
+using Chap1.AlgorithmicToolbox.Exercises;
 using System;
 using System.Linq;
 
@@ -9,15 +10,15 @@ namespace ConsoleApp2
         static void Main(string[] args)
         {
           //  var arrayLength = Console.ReadLine();
-            var arrayItems = "3 5 77 3"
-                                   .Split(' ')
-                                   .Select(i => int.Parse(i))
-                                   .ToArray();
-            Week1 lesson1 = new Week1();
-            Console.WriteLine($"sum: {lesson1.MaximumPairProduct(arrayItems)}");
+            //var arrayItems = "3 5 77 3"
+            //                       .Split(' ')
+            //                       .Select(i => int.Parse(i))
+            //                       .ToArray();
+            //Week1 lesson1 = new Week1();
+            //Console.WriteLine($"sum: {lesson1.MaximumPairProduct(arrayItems)}");
 
             Console.WriteLine();
-            TestFibonacciTimes();
+            TestFibonacciMod();
 
         }
 
@@ -30,6 +31,16 @@ namespace ConsoleApp2
             week2.FibonacciRecursionWithDP(46);
             Console.ReadKey();
         }
- 
+
+        static void TestFibonacciMod()
+        {
+            Week2Exercises week2 = new Week2Exercises();
+            Console.WriteLine("Fibonacci mod");
+           int result= week2.FibonacciModulus(2816213588, 239);
+            Console.WriteLine($"result:{result}");
+             
+            Console.ReadKey();
+        }
+
     }
 }

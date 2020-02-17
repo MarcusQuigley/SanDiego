@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace Chap1.AlgorithmicToolbox.Exercises
 {
@@ -107,6 +109,51 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             if (values.Any(v => v == 0)) return 0;
             int gcm = GreatestCommonDivisor(values);
             return (values[0] * (long)values[1]) / gcm;
+        }
+
+        public int FibonacciModulus(long n, int mod)
+        {
+            StringBuilder sb = new StringBuilder();// "01");
+            string pattern = string.Empty;
+            long current = 1;
+            long previous = 0;
+            long temp = 0;
+          //  int result = -1;
+
+            for (int i = 2; i <= n; i++)
+            {
+                temp = (current + previous) % mod;
+                previous = current;
+                current = temp;
+
+                long rem = current % mod;
+                Debug.Write(rem);
+                sb.Append(rem);
+                if (sb.ToString().EndsWith("011"))
+                {
+                    pattern =  sb.ToString();
+                    pattern=  pattern.Replace("011", "");
+                   
+                    pattern = "01" + pattern;
+                    break;
+                }
+                 
+            }
+            int remainder = (int) n % (pattern.Length);// pattern.Length;
+            return int.Parse(pattern[remainder].ToString());
+        }
+        private bool PatternFound(string remainders, out string pattern)
+        {
+            pattern = string.Empty;
+            Console.WriteLine($"div Length={remainders.Length}");
+            int half = remainders.Length / 2;
+            string left = remainders.Substring(0, half);
+            if (left == remainders.Substring(half))
+            {
+                pattern = left;
+                return true;
+            }
+            return false;
         }
     }    
 }
