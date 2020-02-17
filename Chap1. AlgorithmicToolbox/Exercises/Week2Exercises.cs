@@ -40,7 +40,7 @@ namespace Chap1.AlgorithmicToolbox.Exercises
         public int GreatestCommonDivisor(int[] values)
         {
             if (values == null || values.Length!=2) throw new ArgumentException(nameof(values));
-
+            
             int a = values[0];
             int b = values[1];
             int remainder = 0;
@@ -104,6 +104,7 @@ namespace Chap1.AlgorithmicToolbox.Exercises
         public long LeastCommonMultiple(int[] values)
         {
             if (values == null || values.Length != 2) throw new ArgumentException(nameof(values));
+            if (values.Any(v => v == 0)) return 0;
             int gcm = GreatestCommonDivisor(values);
             return (values[0] * (long)values[1]) / gcm;
         }
