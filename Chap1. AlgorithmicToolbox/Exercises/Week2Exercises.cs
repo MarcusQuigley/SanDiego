@@ -111,49 +111,40 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             return (values[0] * (long)values[1]) / gcm;
         }
 
-        public int FibonacciModulus(long n, int mod)
+        public long FibonacciModulus(long n, long mod)
         {
-            StringBuilder sb = new StringBuilder();// "01");
-            string pattern = string.Empty;
+            long pisanoPeriod = PisanoPeriod(mod);
+            if (pisanoPeriod == -1)
+                return -1;
+            long remainder = n % pisanoPeriod;
             long current = 1;
             long previous = 0;
-            long temp = 0;
-          //  int result = -1;
-
-            for (int i = 2; i <= n; i++)
+            long next = remainder;
+ 
+            for (int i = 1; i < remainder; i++)
             {
-                temp = (current + previous) % mod;
+                next = (current + previous) % mod;
                 previous = current;
-                current = temp;
-
-                long rem = current % mod;
-                Debug.Write(rem);
-                sb.Append(rem);
-                if (sb.ToString().EndsWith("011"))
-                {
-                    pattern =  sb.ToString();
-                    pattern=  pattern.Replace("011", "");
-                   
-                    pattern = "01" + pattern;
-                    break;
-                }
-                 
+                current = next;
             }
-            int remainder = (int) n % (pattern.Length);// pattern.Length;
-            return int.Parse(pattern[remainder].ToString());
+            return next;// % mod;
         }
-        private bool PatternFound(string remainders, out string pattern)
+
+        private long PisanoPeriod(long mod)
         {
-            pattern = string.Empty;
-            Console.WriteLine($"div Length={remainders.Length}");
-            int half = remainders.Length / 2;
-            string left = remainders.Substring(0, half);
-            if (left == remainders.Substring(half))
+            long previous = 0;
+            long current = 1;
+            long next = 0;
+            for (int i = 0;i <mod * mod; i++)
             {
-                pattern = left;
-                return true;
+                next = (previous + current) % mod;
+                previous = current;
+                current = next;
+                //if (previous == 1 && current == 0)
+                if (previous == 0 && current == 1)
+                    return i+1;
             }
-            return false;
+            return -1;
         }
     }    
 }

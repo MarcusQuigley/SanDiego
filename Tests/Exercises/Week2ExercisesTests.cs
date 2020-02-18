@@ -73,10 +73,11 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
         }
 
         [Theory]
-        [InlineData(2015, 3,1)]
+        [InlineData(2015, 3, 1)]
         [InlineData(239, 1000, 161)]
         [InlineData(2816213588, 239, 151)]
-        public void CheckFibonacciModulus(int n, int modulus,  int expectedResult)
+        [InlineData(9999999999999, 2, 0)]
+        public void CheckFibonacciModulus(long n, long modulus,  long expectedResult)
         {
             var actualResult = sut.FibonacciModulus(n, modulus);
             Assert.Equal(expectedResult, actualResult);

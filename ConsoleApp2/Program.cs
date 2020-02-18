@@ -36,8 +36,10 @@ namespace ConsoleApp2
         {
             Week2Exercises week2 = new Week2Exercises();
             Console.WriteLine("Fibonacci mod");
-           int result= week2.FibonacciModulus(2816213588, 239);
-            Console.WriteLine($"result:{result}");
+            Console.WriteLine(week2.FibonacciModulus(2015, 3));
+            Console.WriteLine(week2.FibonacciModulus(239, 1000));
+             Console.WriteLine(week2.FibonacciModulus(2816213588, 239));
+            
              
             Console.ReadKey();
         }
