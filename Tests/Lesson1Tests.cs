@@ -2,7 +2,7 @@ using Chap1.AlgorithmicToolbox;
 using System;
 using Xunit;
 
-namespace XUnitTestProject1
+namespace Chap1.AlgorithmicToolbox.Tests
 {
     public class Week1Tests : IDisposable
     {
