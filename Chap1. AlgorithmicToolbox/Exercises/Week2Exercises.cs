@@ -41,8 +41,8 @@ namespace Chap1.AlgorithmicToolbox.Exercises
 
         public int GreatestCommonDivisor(int[] values)
         {
-            if (values == null || values.Length!=2) throw new ArgumentException(nameof(values));
-            
+            if (values == null || values.Length != 2) throw new ArgumentException(nameof(values));
+
             int a = values[0];
             int b = values[1];
             int remainder = 0;
@@ -58,27 +58,27 @@ namespace Chap1.AlgorithmicToolbox.Exercises
                 b = remainder;
             }
             return b;
-         }
+        }
 
-        public long LeastCommonMultipleBruteForce(int [] values)
+        public long LeastCommonMultipleBruteForce(int[] values)
         {
             if (values == null || values.Length != 2) throw new ArgumentException(nameof(values));
-            
+
             int a = values.Min();
             int b = values.Max();
             int tempa = a;
             int tempb = b;
             if (b % a == 0) return a;
-            
+
             List<int> aValues = new List<int>();
             List<int> bValues = new List<int>();
             int counter = 1;
-       
+
             while (true)
             {
-              
+
                 aValues.Add(a);
-                bValues.Add(b );
+                bValues.Add(b);
 
                 for (int i = 0; i < aValues.Count; i++)
                 {
@@ -100,7 +100,7 @@ namespace Chap1.AlgorithmicToolbox.Exercises
                 a = tempa * counter;
                 b = tempb * counter;
             }
-           // return result;
+            // return result;
         }
 
         public long LeastCommonMultiple(int[] values)
@@ -120,7 +120,7 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             long current = 1;
             long previous = 0;
             long next = remainder;
- 
+
             for (int i = 1; i < remainder; i++)
             {
                 next = (current + previous) % mod;
@@ -135,16 +135,53 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             long previous = 0;
             long current = 1;
             long next = 0;
-            for (int i = 0;i <mod * mod; i++)
+            for (int i = 0; i < mod * mod; i++)
             {
                 next = (previous + current) % mod;
                 previous = current;
                 current = next;
-                //if (previous == 1 && current == 0)
                 if (previous == 0 && current == 1)
-                    return i+1;
+                    return i + 1;
             }
             return -1;
         }
-    }    
+
+        private int[] PisanoArray(int mod)
+        {
+            int previous = 0;
+            int current = 1;
+            int next = 0;
+            List<int> pisanoValues = new List<int>() { 0 };
+            for (int i = 0; i < mod * mod; i++)
+            {
+                pisanoValues.Add(current);
+                next = (current + previous) % mod;
+                previous = current;
+                current = next;
+                if (previous == 0 && current == 1)
+                {
+                    pisanoValues.RemoveAt(i + 1);
+                    break;
+                }
+            }
+            return pisanoValues.ToArray();
+        }
+
+        public int LastDigitOfFibonacciSum(long n)
+        {
+            int modulus = 10;
+            var pisanoValues = PisanoArray(modulus);
+            int pisanoPeriod = pisanoValues.Length;
+
+            //sum of n Fib = fib n +2 -1
+            var m = (n + 2) % pisanoPeriod;
+            var sum = pisanoValues[m] - 1;
+            if (sum < 0)
+                sum = 9;
+
+            var lastDigitOfSum = sum % 10;
+
+            return lastDigitOfSum;
+        }
+    }   
 }

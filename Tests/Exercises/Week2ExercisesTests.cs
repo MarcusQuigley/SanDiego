@@ -15,7 +15,7 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
         }
 
         [Theory]
-        [InlineData(5,5)]
+        [InlineData(5, 5)]
         [InlineData(7, 13)]
         [InlineData(1, 1)]
         [InlineData(2, 1)]
@@ -51,10 +51,10 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
         }
 
         [Theory]
-         [InlineData(new int[] { 6,8 }, 24)]
-       [InlineData(new int[] { 18, 35 }, 630)]
-         [InlineData(new int[] { 28851538, 1183019 }, 1933053046)]
-         [InlineData(new int[] { 2, 5 }, 10)]
+        [InlineData(new int[] { 6, 8 }, 24)]
+        [InlineData(new int[] { 18, 35 }, 630)]
+        [InlineData(new int[] { 28851538, 1183019 }, 1933053046)]
+        [InlineData(new int[] { 2, 5 }, 10)]
         public void CheckLeastCommonMultipleBruteForce(int[] values, int expectedResult)
         {
             var actualResult = sut.LeastCommonMultipleBruteForce(values);
@@ -77,9 +77,23 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
         [InlineData(239, 1000, 161)]
         [InlineData(2816213588, 239, 151)]
         [InlineData(9999999999999, 2, 0)]
-        public void CheckFibonacciModulus(long n, long modulus,  long expectedResult)
+        public void CheckFibonacciModulus(long n, long modulus, long expectedResult)
         {
             var actualResult = sut.FibonacciModulus(n, modulus);
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Theory]
+        [InlineData(3, 4)]
+        [InlineData(15, 6)]
+        [InlineData(12, 6)]
+        [InlineData(100, 5)]
+        [InlineData(832564823476, 3)]
+        [InlineData(239, 0)]
+        [InlineData(614162383528, 9)]
+        public void CheckLastDigitOfFibonacciSum(long n, long expectedResult)
+        {
+            var actualResult = sut.LastDigitOfFibonacciSum(n);
             Assert.Equal(expectedResult, actualResult);
         }
     }
