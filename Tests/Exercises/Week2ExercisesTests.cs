@@ -96,5 +96,15 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
             var actualResult = sut.LastDigitOfFibonacciSum(n);
             Assert.Equal(expectedResult, actualResult);
         }
+        [Theory]
+        [InlineData(3,7,1)]
+        [InlineData(10,10,5)]
+        [InlineData(10, 200, 2)]
+        public void CheckLastDigitOfFibonacciPartialSum(long n, long m, long expectedResult)
+        {
+            var actualResult = sut.LastDigitOfFibonacciPartialSum(n,m);
+            Assert.Equal(expectedResult, actualResult);
+        }
+        
     }
 }

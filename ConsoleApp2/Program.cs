@@ -18,8 +18,7 @@ namespace ConsoleApp2
             //Console.WriteLine($"sum: {lesson1.MaximumPairProduct(arrayItems)}");
 
             Console.WriteLine();
-            TestFibonacciMod();
-
+            TestLastDigitOfFibonacciPartialSum();
         }
 
         static void TestFibonacciTimes()
@@ -39,9 +38,14 @@ namespace ConsoleApp2
             Console.WriteLine(week2.FibonacciModulus(2015, 3));
             Console.WriteLine(week2.FibonacciModulus(239, 1000));
              Console.WriteLine(week2.FibonacciModulus(2816213588, 239));
-            
-             
             Console.ReadKey();
+        }
+
+        static void TestLastDigitOfFibonacciPartialSum()
+        {
+            Week2Exercises week2 = new Week2Exercises();
+            Console.WriteLine("Fibonacci mod");
+            Console.WriteLine(week2.LastDigitOfFibonacciPartialSum(5, 10));
         }
 
     }

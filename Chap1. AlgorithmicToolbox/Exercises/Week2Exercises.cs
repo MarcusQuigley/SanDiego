@@ -145,32 +145,11 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             }
             return -1;
         }
-
-        private int[] PisanoArray(int mod)
-        {
-            int previous = 0;
-            int current = 1;
-            int next = 0;
-            List<int> pisanoValues = new List<int>() { 0 };
-            for (int i = 0; i < mod * mod; i++)
-            {
-                pisanoValues.Add(current);
-                next = (current + previous) % mod;
-                previous = current;
-                current = next;
-                if (previous == 0 && current == 1)
-                {
-                    pisanoValues.RemoveAt(i + 1);
-                    break;
-                }
-            }
-            return pisanoValues.ToArray();
-        }
-
+        
         public int LastDigitOfFibonacciSum(long n)
         {
             int modulus = 10;
-            var pisanoValues = PisanoArray(modulus);
+            var pisanoValues = GetPisanoValues(modulus);
             int pisanoPeriod = pisanoValues.Length;
 
             //sum of n Fib = fib n +2 -1
@@ -182,6 +161,44 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             var lastDigitOfSum = sum % 10;
 
             return lastDigitOfSum;
+        }
+
+        public int LastDigitOfFibonacciPartialSum(long n, long m )
+        {
+            int modulus = 10;
+            var pisanoValues = GetPisanoValues(modulus);
+            var pisanoLength = pisanoValues.Length;
+
+            //trick to get sum wihtout summing all 
+            long newm = (m + 2) % pisanoLength;
+            long newn = (n + 1) % pisanoLength;
+            int start = pisanoValues[newn] - 1;
+            int end = pisanoValues[newm] - 1;
+             if (end < start)
+            {
+                end += 10;
+            }
+            return Math.Abs(end - start);// % 10;
+        }
+
+        private int[] GetPisanoValues(int modulus)
+        {
+            int previous = 0;
+            int current = 1;
+            int next = 0;
+            List<int> values = new List<int> { 0 };
+            for (int i = 0; i < modulus*modulus; i++)
+            {
+                values.Add(current);
+                next = (previous+current) % modulus;
+                previous = current;
+                current = next;
+                if (previous==1 && current == 0)
+                {
+                    break;
+                }
+            }
+            return values.ToArray();
         }
     }   
 }
