@@ -6,43 +6,45 @@ using System.Text;
 
 namespace Chap1.AlgorithmicToolbox.Exercises
 {
-   public class Week3Exercises
+    public class Week3Exercises
     {
+        //public int GetChangeOld(int weight)
+        //{
+        //    int[] items = new int[] { 10, 5, 1 };
+        //    List<int> answers = new List<int>();
+        //    int item = 0;
+        //    while (weight > 0)
+        //    {
+        //        for (int j = 0; j < items.Length; j++)
+        //        {
+        //            if (items[j] < weight)
+        //            {
+        //                item = items[j];
+        //                break;
+        //            }
+        //        }
+        //        answers.Add(item);
+        //        weight -= item;
+        //    }
+        //    return answers.Count;
+        //}
 
         public int GetChange(int weight)
         {
-           // Array.Sort(items,new MimimumComparer());
-            int[] items = new int[] { 10, 5, 1};
-          //  int count = items.Length;
-            // int[] answers = new int[count] { };
-            List<int> answers = new List<int>();
-            //int v = 0;
-            int item = 0;
-            while(weight>0)
-            //for(int i=0;i< count; i++)
+            int answer = 0;
+            int[] coins = { 10, 5, 1 };
+            for (int i = 0; i < coins.Length; i++)
             {
-                //if (weight == 0)
-                //{
-                //    return v;
-                //}
-
-                //select item with less than weight miniumm weight
-                for (int j = 0; j < items.Length; j++)
+                while(coins[i] <= weight)
                 {
-                    if (items[j] < weight)
-                    {
-                        item = items[j];
-                        break;
-                    }
+                    weight -= coins[i];
+                    answer += 1;
                 }
-               // v += item;
-                answers.Add(item);
-                weight -= item;
-             }
-             
-            return answers.Count;// v;
+            }
+            return answer;
         }
     }
+
     public class MimimumComparer : IComparer<int>
     {
         public int Compare(int x, int y)
