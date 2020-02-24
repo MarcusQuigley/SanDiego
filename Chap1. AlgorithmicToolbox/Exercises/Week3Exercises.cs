@@ -27,12 +27,12 @@ namespace Chap1.AlgorithmicToolbox.Exercises
 
         public double MaxLootValue(int capacity, int[] values, int[] weights)
         {
-            int itemsLength = (values.Length == weights.Length) ? values.Length : throw new ArgumentException("Must be an equal amouont of values and weights");
-            double result = 0;
-            ItemValue[] itemValues = new ItemValue[itemsLength];
+            int itemsLength = values.Length;
+            double result = 0D;
+            Item[] itemValues = new Item[itemsLength];
             for (int i = 0; i < itemsLength; i++)
             {
-                itemValues[i] = new ItemValue { Index = i, Weight = weights[i], Value = values[i] };
+                itemValues[i] = new Item {  Weight = weights[i], Value = values[i] };
             }
             Array.Sort(itemValues, new MaxLootComparer());
             for (int j = 0; j < itemsLength; j++)
@@ -48,62 +48,70 @@ namespace Chap1.AlgorithmicToolbox.Exercises
                 {
                     if (capacity > 0)
                     {
-                        var fraction = ((double) capacity / (double)item.Weight);
+                        var fraction = ((double) capacity / item.Weight);
                         result +=   fraction * item.Value ;
-                        capacity =(int)( capacity- (fraction * item.Weight));
+                     //   totalValue += item.Value * ((double)capacity / item.Weight);
+                        //   capacity -= result; = (int)( capacity- (fraction * item.Weight));
                     }
                     break;
                 }
             }
             return Math.Round( result,4);
         }
- 
- //       public int MaxLootValue(int capacity, int[] values,int[] weights )
- //       {
- //           int amount = 0;
- //           int numItems = values.Length;
- //           int newCapacity = capacity;
 
-        //           int[]  weightScores = new int[capacity];
-        //           for (int i = 1; i <= numItems; i++)
-        //           {
-        //                for (int j = 0; j < capacity; j++)
-        //               {
-        //                   if (weights[i-1] <= j)
-        //                   {
-        //                       var remainingItem = j - weights[i-1];
-        //                       weightScores[i][j] = Math.Max(
-        //                           weightScores[i - 1][j],
-        //                           weightScores[i - 1][remainingItem] + values[i - 1]);
-        //                   }
-        //                   else
-        //                   {
-        //                       weightScores[i][j] = values[i - 1];//[j];
-        //                   }
-        //               }
-        //           }
-        ////V 60 W 20
-        ////  100  50
+        public double MaxLootValue2(int capacity, int[] values, int[] weights)
+        {
+            var n = values.Length;
+            var items = new Item[n];
+            for (var i = 0; i < n; ++i)
+            {
+                items[i] = new Item { Value = values[i], Weight = weights[i] };
+            }
 
-        //           return amount;
-        //       }
-    }
+            items = items
+                .OrderByDescending(v => v.Cost)
+                .ToArray();
 
-    public class ItemValue
+            var token = 0;
+            var result = 0D;
+            while (capacity > 0 && token < items.Length)
+            {
+                var item = items[token];
+                if (item.Weight <= capacity)
+                {
+                    result += item.Value;
+                    capacity -= item.Weight;
+                    ++token;
+                    continue;
+                }
+
+                result += item.Value * ((double)capacity / item.Weight);
+                break;
+            }
+
+            // return totalValue;
+            return Math.Round(result, 4);
+        }
+
+ }
+
+   
+    public class Item
     {
-        public int Index { get; set; }
+        
         public int Weight { get; set; }
         public int Value { get; set; }
+      
         public double Cost => (double)Value / Weight;
         public override string ToString()
         {
-            return $"{Index} C: {Cost} V: {Value} W: {Weight}";
+            return $"C: {Cost} V: {Value} W: {Weight}";
         }
     }
 
-    public class MaxLootComparer : IComparer<ItemValue>
+    public class MaxLootComparer : IComparer<Item>
     {
-        public int Compare(ItemValue x, ItemValue y)
+        public int Compare(Item x, Item y)
         {
             return y.Cost.CompareTo(x.Cost);
         }
