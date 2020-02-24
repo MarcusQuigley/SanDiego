@@ -23,9 +23,9 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
         }
 
         [Theory]
-        [InlineData(50, new int[] { 60,100,120}, new int[] { 20, 50, 30 }, 180.0000)]
-      //  [InlineData(10, new int[] { 500 }, new int[] { 30 }, 166.6667)]
-        public void CheckMaxLootValue( int capacity, int[] values, int[] weights, float expected)
+        [InlineData(50, new int[] { 60,100,120}, new int[] { 20, 50, 30 }, 180.0)]
+        [InlineData(10, new int[] { 500 }, new int[] { 30 }, 166.6667)]
+        public void CheckMaxLootValue( int capacity, int[] values, int[] weights, double expected)
         {
             var actual = sut.MaxLootValue(capacity,values, weights);
             Assert.Equal(expected, actual);
