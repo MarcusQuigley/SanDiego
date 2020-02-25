@@ -31,6 +31,15 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
             Assert.Equal(expected, actual);
         }
 
-        //
+        [Theory]
+         [InlineData(950, 400, new int[] { 200, 375, 550, 750 } ,2)]
+        [InlineData(10,3, new int[] { 1,2,5,9 }, -1)]
+        [InlineData(10, 3, new int[] { 1, 2, 5, 7 }, 3)]
+        [InlineData(10, 3, new int[] { }, -1)]
+        public void CheckComputeMinRefills(int dist, int tank, int[] stops, int expected)
+        {
+            var actual = sut.ComputeMinRefills(dist, tank, stops);
+            Assert.Equal(expected, actual);
+        }
     }
 }

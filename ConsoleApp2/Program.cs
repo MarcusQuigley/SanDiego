@@ -1,6 +1,4 @@
-﻿using Chap1.AlgorithmicToolbox;
-using Chap1.AlgorithmicToolbox.Exercises;
-using System;
+﻿using System;
 using System.Linq;
 
 namespace ConsoleApp2
@@ -9,43 +7,56 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-          //  var arrayLength = Console.ReadLine();
+            //  var arrayLength = Console.ReadLine();
             //var arrayItems = "3 5 77 3"
             //                       .Split(' ')
             //                       .Select(i => int.Parse(i))
             //                       .ToArray();
-            //Week1 lesson1 = new Week1();
-            //Console.WriteLine($"sum: {lesson1.MaximumPairProduct(arrayItems)}");
-
-            Console.WriteLine();
-            TestLastDigitOfFibonacciPartialSum();
+            var dist = int.Parse(Console.ReadLine());
+            var tank = int.Parse(Console.ReadLine());
+            var n = int.Parse(Console.ReadLine());
+            int[] stops = new int[n];
+            if (n > 0)
+            {
+                stops = Console.ReadLine()
+                                     .Split(' ')
+                                     .Select(i => int.Parse(i))
+                                     .ToArray();
+            }
+            
+            Console.WriteLine(computeMinRefills(dist, tank, stops));
         }
 
-        static void TestFibonacciTimes()
+        static int computeMinRefills(int journey, int tank, int[] stops)
         {
-            Week2 week2 = new Week2();
-            Console.WriteLine("Fibonacci");
-            week2.FibonacciRecursion(46);
-            Console.WriteLine("onto Fib with DP");
-            week2.FibonacciRecursionWithDP(46);
-            Console.ReadKey();
-        }
+            int numRefills = 0;
+            int currentRefill = 0;
+            int lastRefill = 0;
+            int n = stops.Length;
+            int[] allStops = new int[n + 2];
+            for (int i = 1; i <= n; i++)
+            {
+                allStops[i] = stops[i - 1];
+            }
+            allStops[allStops.Length - 1] = journey;
 
-        static void TestFibonacciMod()
-        {
-            Week2Exercises week2 = new Week2Exercises();
-            Console.WriteLine("Fibonacci mod");
-            Console.WriteLine(week2.FibonacciModulus(2015, 3));
-            Console.WriteLine(week2.FibonacciModulus(239, 1000));
-             Console.WriteLine(week2.FibonacciModulus(2816213588, 239));
-            Console.ReadKey();
-        }
-
-        static void TestLastDigitOfFibonacciPartialSum()
-        {
-            Week2Exercises week2 = new Week2Exercises();
-            Console.WriteLine("Fibonacci mod");
-            Console.WriteLine(week2.LastDigitOfFibonacciPartialSum(5, 10));
+            while (currentRefill <= n)
+            {
+                lastRefill = currentRefill;
+                while (currentRefill <= n && allStops[currentRefill + 1] - allStops[lastRefill] <= tank)
+                {
+                    currentRefill += 1;
+                }
+                if (currentRefill == lastRefill)
+                {
+                    return -1;
+                }
+                if (currentRefill <= n)
+                {
+                    numRefills += 1;
+                }
+            }
+            return numRefills;
         }
 
     }
