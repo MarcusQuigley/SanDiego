@@ -41,5 +41,17 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
             var actual = sut.ComputeMinRefills(dist, tank, stops);
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData( new int[] {23 }, new int[] { 39 } ,897)]
+        [InlineData(new int[] { 1,3,-5 }, new int[] { -2,4,1 }, 23)]
+    
+        public void CheckMaxAdRevenue(int[] a, int[] b, long expected)
+        {
+            var actual = sut.MaxAdRevenue(a, b);
+            Assert.Equal(expected, actual);
+        }
+
+        
     }
 }
