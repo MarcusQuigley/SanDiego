@@ -125,7 +125,19 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             return numRefills;
         }
 
+        public long MaxAdRevenue(int[] profits, int[] clicks)
+        {
+            long result = 0;
+            Array.Sort(profits);
+            Array.Sort(clicks);
+            for (int i = 0; i < profits.Length; i++)
+            {
+                var profit = profits[i] * (long)clicks[i];
+                result += profit;
+            }
 
+            return result;
+        }
 
         public class Item
         {

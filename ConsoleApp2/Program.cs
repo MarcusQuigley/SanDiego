@@ -12,51 +12,31 @@ namespace ConsoleApp2
             //                       .Split(' ')
             //                       .Select(i => int.Parse(i))
             //                       .ToArray();
-            var dist = int.Parse(Console.ReadLine());
-            var tank = int.Parse(Console.ReadLine());
             var n = int.Parse(Console.ReadLine());
-            int[] stops = new int[n];
-            if (n > 0)
-            {
-                stops = Console.ReadLine()
+            var profits = Console.ReadLine()
                                      .Split(' ')
                                      .Select(i => int.Parse(i))
                                      .ToArray();
-            }
-            
-            Console.WriteLine(computeMinRefills(dist, tank, stops));
+            var clicks = Console.ReadLine()
+                                     .Split(' ')
+                                     .Select(i => int.Parse(i))
+                                     .ToArray();
+
+            Console.WriteLine(MaxAdRevenue(profits, clicks));
         }
 
-        static int computeMinRefills(int journey, int tank, int[] stops)
+        static   long MaxAdRevenue(int[] profits, int[] clicks)
         {
-            int numRefills = 0;
-            int currentRefill = 0;
-            int lastRefill = 0;
-            int n = stops.Length;
-            int[] allStops = new int[n + 2];
-            for (int i = 1; i <= n; i++)
+            long result = 0;
+            Array.Sort(profits);
+            Array.Sort(clicks);
+            for (int i = 0; i < profits.Length; i++)
             {
-                allStops[i] = stops[i - 1];
+                var profit = profits[i] * (long)clicks[i];
+                result += profit;
             }
-            allStops[allStops.Length - 1] = journey;
 
-            while (currentRefill <= n)
-            {
-                lastRefill = currentRefill;
-                while (currentRefill <= n && allStops[currentRefill + 1] - allStops[lastRefill] <= tank)
-                {
-                    currentRefill += 1;
-                }
-                if (currentRefill == lastRefill)
-                {
-                    return -1;
-                }
-                if (currentRefill <= n)
-                {
-                    numRefills += 1;
-                }
-            }
-            return numRefills;
+            return result;
         }
 
     }
