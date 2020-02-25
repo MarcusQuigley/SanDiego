@@ -16,7 +16,7 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             int[] coins = { 10, 5, 1 };
             for (int i = 0; i < coins.Length; i++)
             {
-                while(coins[i] <= weight)
+                while (coins[i] <= weight)
                 {
                     weight -= coins[i];
                     answer += 1;
@@ -32,13 +32,13 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             Item[] itemValues = new Item[itemsLength];
             for (int i = 0; i < itemsLength; i++)
             {
-                itemValues[i] = new Item {  Weight = weights[i], Value = values[i] };
+                itemValues[i] = new Item { Weight = weights[i], Value = values[i] };
             }
             Array.Sort(itemValues, new MaxLootComparer());
             for (int j = 0; j < itemsLength; j++)
             {
                 var item = itemValues[j];
-            
+
                 if (item.Weight <= capacity)
                 {
                     capacity -= item.Weight;
@@ -48,15 +48,15 @@ namespace Chap1.AlgorithmicToolbox.Exercises
                 {
                     if (capacity > 0)
                     {
-                        var fraction = ((double) capacity / item.Weight);
-                        result +=   fraction * item.Value ;
-                     //   totalValue += item.Value * ((double)capacity / item.Weight);
+                        var fraction = ((double)capacity / item.Weight);
+                        result += fraction * item.Value;
+                        //   result += item.Value * ((double)capacity / item.Weight);
                         //   capacity -= result; = (int)( capacity- (fraction * item.Weight));
                     }
                     break;
                 }
             }
-            return Math.Round( result,4);
+            return Math.Round(result, 4);
         }
 
         public double MaxLootValue2(int capacity, int[] values, int[] weights)
@@ -92,40 +92,70 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             // return totalValue;
             return Math.Round(result, 4);
         }
-
- }
-
-   
-    public class Item
-    {
-        
-        public int Weight { get; set; }
-        public int Value { get; set; }
-      
-        public double Cost => (double)Value / Weight;
-        public override string ToString()
+               
+        public int ComputeMinRefills(int journey, int tank, int[] stops)
         {
-            return $"C: {Cost} V: {Value} W: {Weight}";
-        }
-    }
-
-    public class MaxLootComparer : IComparer<Item>
-    {
-        public int Compare(Item x, Item y)
-        {
-            return y.Cost.CompareTo(x.Cost);
-        }
-    }
-
-    public class MimimumComparer : IComparer<int>
-    {
-        public int Compare(int x, int y)
-        {
-            if (x < y)
+            int numRefills = 0;
+            int currentRefill = 0;
+            int lastRefill = 0;
+            int n = stops.Length;
+            int[] allStops = new int[n + 2];
+            for (int i = 1; i <= n; i++)
             {
-                return x;
+                allStops[i] = stops[i - 1];
             }
-            return y;
+            allStops[allStops.Length - 1] = journey;
+
+            while (currentRefill <= n)
+            {
+                lastRefill = currentRefill;
+                while (currentRefill <= n && allStops[currentRefill + 1] - allStops[lastRefill] <= tank)
+                {
+                    currentRefill += 1;
+                }
+                if (currentRefill == lastRefill)
+                {
+                    return -1;
+                }
+                if (currentRefill <= n)
+                {
+                    numRefills += 1;
+                }
+            }
+            return numRefills;
+        }
+
+
+
+        public class Item
+        {
+            public int Weight { get; set; }
+            public int Value { get; set; }
+            public double Cost => (double)Value / Weight;
+            public override string ToString()
+            {
+                return $"C: {Cost} V: {Value} W: {Weight}";
+            }
+        }
+
+        public class MaxLootComparer : IComparer<Item>
+        {
+            public int Compare(Item x, Item y)
+            {
+                return y.Cost.CompareTo(x.Cost);
+            }
+        }
+
+        public class MimimumComparer : IComparer<int>
+        {
+            public int Compare(int x, int y)
+            {
+                if (x < y)
+                {
+                    return x;
+                }
+                return y;
+            }
         }
     }
 }
