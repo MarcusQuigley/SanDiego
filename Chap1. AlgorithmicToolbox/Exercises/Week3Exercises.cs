@@ -92,7 +92,7 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             // return totalValue;
             return Math.Round(result, 4);
         }
-               
+
         public int ComputeMinRefills(int journey, int tank, int[] stops)
         {
             int numRefills = 0;
@@ -139,35 +139,106 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             return result;
         }
 
-        public class Item
+        public int[] CollectingSignatures(Segment[] segments)
         {
-            public int Weight { get; set; }
-            public int Value { get; set; }
-            public double Cost => (double)Value / Weight;
-            public override string ToString()
-            {
-                return $"C: {Cost} V: {Value} W: {Weight}";
-            }
-        }
+            if (segments == null || segments.Length == 0)
+                return new int[] { 0 };
+            if (segments.Length == 1)
+                return new int[] { segments[0].End };
 
-        public class MaxLootComparer : IComparer<Item>
-        {
-            public int Compare(Item x, Item y)
-            {
-                return y.Cost.CompareTo(x.Cost);
-            }
-        }
+            int index = 0;
+            int startIndex = 0;
+            int n = segments.Length;
+            List<int> points = new List<int>();
+            Array.Sort(segments, new SegmentComparer());
 
-        public class MimimumComparer : IComparer<int>
-        {
-            public int Compare(int x, int y)
+            while (index <= n)
             {
-                if (x < y)
+                startIndex = index;
+                int startPoint = segments[startIndex].End;
+                while (index < n && segments[index].ContainsPoint(startPoint))// segments[index] != segments[startIndex]) //need to see if startIndex segment touchs all new segments
                 {
-                    return x;
+                    index += 1;
+                    //need to get the highest value thats touching the segments
                 }
-                return y;
+                //  if (index > n) throw new Exception();
+                if (index <= n)
+                {
+                    points.Add(startPoint); //need to add this highest value
+                                            //      index += 1;
+                    if (index == n)
+                        break;
+                }
             }
+            return points.ToArray();
+        }
+
+        public int[] CollectingSignatures2(Segment[] segments)
+        {
+            if (segments == null || segments.Length == 0)
+                return new int[] { 0 };
+            if (segments.Length == 1)
+                return new int[] { segments[0].End };
+
+            int index = 0;
+            int startIndex = 0;
+            int n = segments.Length;
+            List<int> points = new List<int>();
+            Array.Sort(segments, new SegmentComparer());
+
+            while (index <= n)
+            {
+                startIndex = index;
+                var set1 = segments[startIndex];
+                var jj = startIndex + 1;
+                var matches = Enumerable.Empty<int>();
+                var matchesCopy = Enumerable.Empty<int>();
+                while (jj < n) //when this is false then we need to exit entire while loops.. maybe it shouldnt be here
+                {
+                    var set2 = segments[jj];
+                    if (matches.Any())
+                    {
+                        matchesCopy = matches;
+                        matches = set2.Intersects(matches);
+                    }
+                    else
+                        matches = set2.Intersects(set1);
+
+                    if (jj+1==n) //this is last segment
+                    {
+                        if (matches.Any())
+                            points.Add(matchesCopy.Last());
+                        else
+                            if (matchesCopy.Any())
+                            points.Add(matchesCopy.Last());
+                        else
+                            //Do i add the last set ?
+                            Debug.Write("--");
+                        
+                        return points.ToArray();
+                    }
+
+                    if (matches.Any()) //TODO need to check if its the last segment
+                    {
+                        jj += 1;
+                    }
+                    else
+                    {
+                        index = jj; //
+
+                        if (matchesCopy.Any())
+                            points.Add(matchesCopy.Last());
+                        else 
+                            points.Add(set1.End);
+                         
+                        break; //back to outer while
+                    }
+
+                }
+
+            }
+
+            return points.ToArray();
         }
     }
 }
