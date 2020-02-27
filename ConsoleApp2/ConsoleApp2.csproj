@@ -5,8 +5,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Chap1. AlgorithmicToolbox\Chap1.AlgorithmicToolbox.csproj" />
-  </ItemGroup>
-
 </Project>
