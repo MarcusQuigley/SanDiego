@@ -56,7 +56,7 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
         [InlineData(new int[] { 4, 1, 2, 4 }, new int[] { 7, 3, 5, 6 }, new int[] { 3, 6 })]
         [InlineData(new int[] { 4, 1, 2, 5 }, new int[] { 7, 3, 5, 6 }, new int[] { 3, 6 })]
         [InlineData(new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4 })]
-        // [InlineData(new int[] { 1, 2, 3, 4 ,7, 15, 17}, new int[] { 6,5,15,16,19, 20 , 21}, new int[] { 6,16,21 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 7, 15, 17 }, new int[] { 6, 5, 15, 16, 19, 20, 21 }, new int[] { 5, 19 })]
         [InlineData(new int[] { 2, 3, 8 }, new int[] { 8, 15, 24 }, new int[] { 8, })]
         public void CheckCollectingSignatures(int[] a, int[] b, int[] expected)
         {
@@ -65,12 +65,13 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
             {
                 segments[i] = new Segment(a[i], b[i]);
             }
-            var actual = sut.CollectingSignatures2(segments);
+            var actual = sut.CollectingSignatures(segments);
             Assert.Equal(expected.Length, actual.Length);
+            Array.Sort(actual);
             for (int j = 0; j < actual.Length; j++)
             {
                 Assert.Equal(expected[j], actual[j]);
             }
         }
-    }
+     }
 }
