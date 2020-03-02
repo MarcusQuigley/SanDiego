@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace Chap1.AlgorithmicToolbox.Exercises
 {
@@ -145,7 +143,7 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             }
             return -1;
         }
-        
+
         public int LastDigitOfFibonacciSum(long n)
         {
             int modulus = 10;
@@ -163,7 +161,7 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             return lastDigitOfSum;
         }
 
-        public int LastDigitOfFibonacciPartialSum(long n, long m )
+        public int LastDigitOfFibonacciPartialSum(long n, long m)
         {
             int modulus = 10;
             var pisanoValues = GetPisanoValues(modulus);
@@ -174,11 +172,27 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             long newn = (n + 1) % pisanoLength;
             int start = pisanoValues[newn] - 1;
             int end = pisanoValues[newm] - 1;
-             if (end < start)
+            if (end < start)
             {
                 end += 10;
             }
             return Math.Abs(end - start);// % 10;
+        }
+
+        public int LastDigitOfFibonacciSquareSum(long n)
+        {
+            int modulus = 10;
+            var pisanoValues = GetPisanoValues(modulus);
+            var pisanoPeriod = pisanoValues.Length;
+
+            //sq of fib n = fib n * fib n+1
+
+            var nFib = n % pisanoPeriod;
+            var mFib = (n+1) % pisanoPeriod;
+            var nFib1 = pisanoValues[nFib];
+            var mFib1 = pisanoValues[mFib];
+
+            return ( nFib1 * mFib1) % 10;
         }
 
         private int[] GetPisanoValues(int modulus)
@@ -187,18 +201,18 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             int current = 1;
             int next = 0;
             List<int> values = new List<int> { 0 };
-            for (int i = 0; i < modulus*modulus; i++)
+            for (int i = 0; i < modulus * modulus; i++)
             {
                 values.Add(current);
-                next = (previous+current) % modulus;
+                next = (previous + current) % modulus;
                 previous = current;
                 current = next;
-                if (previous==1 && current == 0)
+                if (previous == 1 && current == 0)
                 {
                     break;
                 }
             }
             return values.ToArray();
         }
-    }   
+    }
 }
