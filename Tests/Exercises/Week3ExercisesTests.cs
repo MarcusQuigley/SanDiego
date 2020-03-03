@@ -73,5 +73,17 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
                 Assert.Equal(expected[j], actual[j]);
             }
         }
+
+        [Theory]
+
+        [InlineData(6, 3)]
+        [InlineData(8, 3)]
+        [InlineData(2, 1)]
+        [InlineData(55, 10)]
+        public void CheckMaxPrizes(int a, int expected)
+        {
+            var actual = sut.MaxPrizes(a);
+            Assert.Equal(expected, actual.Length);
+        }
      }
 }

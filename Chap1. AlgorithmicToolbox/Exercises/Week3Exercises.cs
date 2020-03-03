@@ -139,9 +139,6 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             return result;
         }
 
-       
-      
-
         public int[] CollectingSignatures(Segment[] segments)
         {
             if (segments == null || segments.Length == 0)
@@ -161,24 +158,25 @@ namespace Chap1.AlgorithmicToolbox.Exercises
                 var set1 = segments[startIndex];
                 var nextIndex = startIndex + 1;
                 lowestEndPoint = set1.End;
-              
-                while (nextIndex < n) 
+
+                while (nextIndex < n)
                 {
                     var set2 = segments[nextIndex];
-                     if (Intersects(lowestEndPoint, set2.Start))
+                    if (Intersects(lowestEndPoint, set2.Start))
                     {
-                         if (set2.End < lowestEndPoint)
+                        if (set2.End < lowestEndPoint)
                         {
                             lowestEndPoint = set2.End;
                         }
                         nextIndex += 1;
                     }
-                    else {
+                    else
+                    {
                         points.Add(lowestEndPoint);
-                      
+
                         break;
                     }
-                 }
+                }
                 if (n == nextIndex)
                 {
                     points.Add(lowestEndPoint);
@@ -186,12 +184,30 @@ namespace Chap1.AlgorithmicToolbox.Exercises
                 }
                 index = nextIndex;
             }
-             return points.ToArray();
+            return points.ToArray();
         }
 
-        public bool Intersects(int end , int segmentStart)
+        bool Intersects(int end, int segmentStart)
         {
-             return segmentStart <= end;
+            return segmentStart <= end;
+        }
+
+        public long[] MaxPrizes(int n)
+        {
+            int current = 0;
+            List<long> results = new List<long>();
+            while (n > 0)
+            {
+                current += 1;
+                if (current * 2 >= n)
+                {
+                    results.Add(n);
+                    break;
+                }
+                n -= current;
+                results.Add(current);
+            }
+            return results.ToArray();
         }
     }
 }
