@@ -209,5 +209,45 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             }
             return results.ToArray();
         }
+      
+
+        public string MaxSalary(string[] papers)
+        {
+            if (papers == null || papers.Length == 0)
+                return string.Empty;
+            if (papers.Length == 1)
+                return papers[0];
+            StringBuilder sb = new StringBuilder(papers.Length);
+            Array.Sort(papers, new StringAsMultiDigitIntComparer());
+            for (int k = 0; k < papers.Length; k++)
+            {
+                sb.Append(papers[k]);
+            }
+            return sb.ToString();
+        }
+    }
+    public class StringAsIntComparer : IComparer<string>
+    {
+        public int Compare(string a, string b)
+        {
+            var aInt = int.Parse(a);
+            var bInt = int.Parse(b);
+
+            return bInt - aInt;
+            // return bInt.CompareTo(aInt);
+        }
+    }
+    public class StringAsMultiDigitIntComparer : IComparer<string>
+    {
+        public int Compare(string a, string b)
+        {
+            var intA =int.Parse($"{a}{b}");
+            var intB = int.Parse($"{b}{a}");
+            if (intA > intB)
+                return -1;
+            else if (intB > intA)
+                return 1;
+            return 0;
+        }
     }
 }

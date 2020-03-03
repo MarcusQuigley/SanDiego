@@ -75,7 +75,6 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
         }
 
         [Theory]
-
         [InlineData(6, 3)]
         [InlineData(8, 3)]
         [InlineData(2, 1)]
@@ -85,5 +84,17 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
             var actual = sut.MaxPrizes(a);
             Assert.Equal(expected, actual.Length);
         }
-     }
+
+        [Theory]
+        [InlineData(new string[] { "1", "2", "3" }, "321")]
+        [InlineData(new string[] { "9", "4", "6", "1", "9" }, "99641")]
+        [InlineData(new string[] { "2", "21", }, "221")]
+        [InlineData(new string[] { "23", "39", "92" }, "923923")]
+        [InlineData(new string[] { "23", "232", }, "23232")]
+        public void CheckMaxSalary(string[] papers, string expected)
+        {
+            var actual = sut.MaxSalary(papers);
+            Assert.Equal(expected, actual);
+        }
+    }
 }
