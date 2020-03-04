@@ -14,10 +14,8 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
         }
 
         [Theory]
-        //[InlineData(new int[] {1,5,8,12,13 },new int[] {8,1,23,1,11 }, new int[] { 2,0,-1,0,-1 })]
-         [InlineData(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 }, new int[] {0, 1, 2, 3, 4, })]
-       // [InlineData(new int[] { 1, 2, 3, 4, 5 }, new int[] { 2}, new int[] { -1 })]
-
+        [InlineData(new int[] { 1, 5, 8, 12, 13 }, new int[] { 8, 1, 23, 1, 11 }, new int[] { 2, 0, -1, 0, -1 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 0, 1, 2, 3, 4, })]
         public void CheckBinarySearch(int[] array, int[] searchKeys, int[] expected)
         {
             int[] actual = new int[expected.Length];
@@ -29,9 +27,6 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
             {
                 Assert.Equal(expected[j], actual[j]);
             }
-       
         }
-
-        
     }
 }

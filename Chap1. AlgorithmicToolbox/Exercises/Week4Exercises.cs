@@ -16,7 +16,7 @@ namespace Chap1.AlgorithmicToolbox.Exercises
             int low = 0;
             int high = array.Length - 1;
 
-            while (high > low)
+            while (high >= low)
             {
                 var mid = low + ((high - low) / 2);
                 var midResult = array[mid];
