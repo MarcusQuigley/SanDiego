@@ -28,5 +28,23 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
                 Assert.Equal(expected[j], actual[j]);
             }
         }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4 }, 0)]
+        [InlineData(new int[] { 2, 3, 9, 2, 2 }, 1)]
+        [InlineData(new int[] { 2, 2, 3, 4 }, 0)]
+        [InlineData(new int[] { 2, 124554847, 2, 941795895, 2, 2, 2, 2, 792755190, 756617003 }, 1)]
+        [InlineData(new int[] { 2, 124554847, 2, 941795895, 2, 2 }, 1)]
+        [InlineData(new int[] { }, 0)]
+        [InlineData(new int[] { 1 }, 1)]
+        [InlineData(new int[] { 0, 0, 0, 0, 1, 2, 3, 4 }, 0)]
+        [InlineData(new int[] { 0, 1 }, 0)]
+        [InlineData(new int[] { 6, 6 }, 1)]
+        public void CheckMajorityElement(int[] array, int expected)
+        {
+            var actual = sut.MajorityElement(array, 0, array.Length);
+            actual = (actual == -1) ? 0 : 1;
+            Assert.Equal(expected, actual);
+        }
     }
 }

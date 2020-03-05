@@ -1,4 +1,5 @@
-﻿using Chap1.AlgorithmicToolbox.Workspace;
+﻿using Chap1.AlgorithmicToolbox.Exercises;
+using Chap1.AlgorithmicToolbox.Workspace;
 using System;
 
 namespace WorkspaceConsole
@@ -8,7 +9,7 @@ namespace WorkspaceConsole
         static void Main(string[] args)
         {
             //TestWeek4SelectionSort();
-            TestWeek4MergeSort();
+            TestMajority();
             Console.ReadKey();
         }
 
@@ -21,9 +22,16 @@ namespace WorkspaceConsole
             Console.WriteLine("Sorted");
             Week4.DisplayArray<int>(array);
         }
+
+        static void TestMajority()
+        {
+            int[] array = new int[] { 1,1,3 };
+            var ww = new Week4Exercises();
+            Console.WriteLine($"has majority? {ww.MajorityElement(array, 0, array.Length)}");
+        }
         static void TestWeek4MergeSort()
         {
-            int[] array = new int[] { 7, 5,3, 2 };//, 33, 98, 123, 2, 5, 111, 22, 6 };
+            int[] array = new int[] { 7, 3, 5, 2 };//, 33, 98, 123, 2, 5, 111, 22, 6 };
             TestSortAction(array, new Week4().MergeSort);
         }
 

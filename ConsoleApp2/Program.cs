@@ -10,31 +10,16 @@ namespace ConsoleApp2
         static void Main(string[] args)
         {
             //var arrayLength = Console.ReadLine();
+            var length = Console.ReadLine();
             var args1 = Console.ReadLine()
                                     .Split(' ')
                                     .Select(y => int.Parse(y))
                                     .ToArray();
 
-            int[] array = new int[args1[0]];
-            for (int i = 0; i < args1.Length-1; i++)
-            {
-                array[i] = args1[i + 1];
-            }
+            var result = MajorityElement(args1, 0, args1.Length); 
 
-            var args2 = Console.ReadLine()
-                                   .Split(' ')
-                                   .Select(t => int.Parse(t))
-                                   .ToArray();
+            Console.WriteLine(result==-1? 0:1);
 
-            int[] arraySearchKeys = new int[args2[0]];
-            for (int j = 0; j < args2.Length-1; j++)
-            {
-                arraySearchKeys[j] = args2[j + 1];
-            }
-            for (int j = 0; j < arraySearchKeys.Length; j++)
-            {
-                Console.Write($"{ BinarySearch(array,arraySearchKeys[j])} ");
-            }
             //var answer = BinarySearch(arrayItems);
             //Console.WriteLine(answer);
             //foreach (var a in answer)
@@ -43,28 +28,39 @@ namespace ConsoleApp2
             //}
         }
 
-        static int BinarySearch(int[] array, int searchKey)
+        static int MajorityElement(int[] array, int left, int right)
         {
-            if (array.Length == 0)
-                return -1;
-            if (array.Length == 1)
-                return (array[0] == searchKey) ? 0 : -1;
-
-            int low = 0;
-            int high = array.Length - 1;
-
-            while (high >= low)
+            if (left == right)
             {
-                var mid = low + ((high - low) / 2);
-                var midResult = array[mid];
-                if (midResult == searchKey)
-                    return mid;
-                if (searchKey < midResult)
-                    high = mid - 1;
-                else
-                    low = mid + 1;
+                return -1;
             }
+            if (left + 1 == right)
+            {
+                return array[left];
+            }
+            int mid = (left + right - 1) / 2;
+            int left_elem = MajorityElement(array, left, mid);
+            int right_elem = MajorityElement(array, mid + 1, right);
+
+            int lcount = CountElements(array, left, right, left_elem);
+            if (lcount > (right - left) / 2)
+                return left_elem;
+
+            int rcount = CountElements(array, left, right, right_elem);
+            if (rcount > (right - left) / 2)
+                return right_elem;
             return -1;
+        }
+
+        static int CountElements(int[] array, int start, int end, int element)
+        {
+            int total = 0;
+            for (int i = start; i < end; i++)
+            {
+                if (array[i] == element)
+                    total += 1;
+            }
+            return total;
         }
     }
 }
