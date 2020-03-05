@@ -40,7 +40,7 @@ namespace Chap1.AlgorithmicToolbox.Workspace
             return array;
         }
 
-        public int[] MergeSort(int[] array)
+       public int[] MergeSort(int[] array)
         {
             int[] helper = new int[array.Length];
             MergeSort(array, helper, 0, array.Length - 1);
@@ -51,38 +51,39 @@ namespace Chap1.AlgorithmicToolbox.Workspace
         {
             if (start < end)
             {
-                int half = start + (end - start) / 2;
-                MergeSort(array, helper, start, half);
-                MergeSort(array, helper, half + 1, end);
-                Merge(array, helper, start, half, end);
+                var mid = (start + end) / 2;
+                MergeSort(array, helper, start, mid);
+                MergeSort(array, helper, mid + 1, end);
+                Merge(array, helper, start, mid, end);
             }
         }
 
-        void Merge(int[] array, int[] helper, int low, int middle, int high)
+        void Merge(int[] array, int[] helper, int start, int mid, int end)
         {
-            for (int i = low; i <= high; i++)
+            for (int i = start; i <= end; i++)
             {
                 helper[i] = array[i];
             }
-            int helperLeft = low;
-            int helperRight = middle + 1;
-            int current = low;
 
-            while (helperLeft <= middle && helperRight <= high)
+            int helperLeft = start;
+            int helperRight = mid + 1;
+            int current = start;
+            
+            while (helperLeft<=mid && helperRight<=end)
             {
-                if (helper[helperLeft] <= helper[helperRight])
+                if (helper[helperLeft] < helper[helperRight])
                 {
                     array[current] = helper[helperLeft];
-                    helperLeft += 1;
+                    helperLeft++;
                 }
                 else
                 {
                     array[current] = helper[helperRight];
-                    helperRight += 1;
+                    helperRight++;
                 }
-                current += 1;
+                current++;
             }
-            int remaining = middle - helperLeft;
+            int remaining = mid - helperLeft;
             for (int i = 0; i <= remaining; i++)
             {
                 array[current + i] = helper[helperLeft + i];
@@ -108,40 +109,6 @@ namespace Chap1.AlgorithmicToolbox.Workspace
         }
 
 
-        //void Merge(int[] nums, int[] helper, int low, int mid, int high)
-        //{
-        //    for (int i = low; i <= high; i++)
-        //    {
-        //        helper[i] = nums[i];
-        //    }
-        //    int helperLeft = low;
-        //    int helperRight = mid + 1;
-        //    int cur = low;
-        //    // iterate through helper array. Compare the left and right half,
-        //    // copying back the smaller element from the two halves into the
-        //    // original array.
-        //    while (helperLeft <= mid && helperRight <= high)
-        //    {
-        //        if (helper[helperLeft] <= helper[helperRight])
-        //        {
-        //            nums[cur] = helper[helperLeft];
-        //            helperLeft++;
-        //        }
-        //        else
-        //        {
-        //            nums[cur] = helper[helperRight];
-        //            helperRight++;
-        //        }
-        //        cur++;
-        //    }
-        //    // copy the rest of the left side of the array into the target array.
-        //    // The right side doesn't need to be copied because it's already there.
-        //    int remaining = mid - helperLeft;
-        //    for (int i = 0; i <= remaining; i++)
-        //    {
-        //        nums[cur + i] = helper[helperLeft + i];
-        //    }
-        //}
-
+       
     }
 }
