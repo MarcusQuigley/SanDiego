@@ -101,6 +101,8 @@ namespace Chap1.AlgorithmicToolbox.Workspace
                 else
                     Console.WriteLine(toDisplay);
             }
+
+            Console.WriteLine();
         }
 
         public static void DisplayArray<T>(T[] array)
