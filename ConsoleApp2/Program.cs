@@ -9,13 +9,13 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            var arrayLength = Console.ReadLine();
-            var arrayItems = Console.ReadLine()
-                                    .Split(' ')
-//                                    .Select(i => int.Parse(i))
-                                    .ToArray();
+            var money = int.Parse(Console.ReadLine());
+//            var arrayItems = Console.ReadLine()
+//                                    .Split(' ')
+////                                    .Select(i => int.Parse(i))
+//                                    .ToArray();
  
-            var answer = MaxSalary(arrayItems);
+            var answer = MoneyChange(money);
             Console.WriteLine(answer);
             //foreach (var a in answer)
             //{
@@ -23,33 +23,29 @@ namespace ConsoleApp2
             //}
         }
 
-        static string MaxSalary(string[] papers)
+        static int MoneyChange(int money, int[] coins)
         {
-            if (papers == null || papers.Length == 0)
-                return string.Empty;
-            if (papers.Length == 1)
-                return papers[0];
-            StringBuilder sb = new StringBuilder(papers.Length);
-            Array.Sort(papers, new StringAsMultiDigitIntComparer());
-            for (int k = 0; k < papers.Length; k++)
+            int[] minCoins = new int[money + 1];
+            minCoins[0] = 0;
+
+            for (int m = 1; m <= money; m++)
             {
-                sb.Append(papers[k]);
+                minCoins[m] = int.MaxValue;
+                for (int i = 0; i < coins.Length; i++)
+                {
+                    if (coins[i] > m)
+                        break;
+                    var numCoins = minCoins[m - coins[i]] + 1;
+                    if (numCoins < minCoins[m])
+                        minCoins[m] = numCoins;
+                }
             }
-            return sb.ToString();
+            return minCoins[money];
         }
 
-        public class StringAsMultiDigitIntComparer : IComparer<string>
+        static int MoneyChange(int money)
         {
-            public int Compare(string a, string b)
-            {
-                var intA = int.Parse($"{a}{b}");
-                var intB = int.Parse($"{b}{a}");
-                if (intA > intB)
-                    return -1;
-                else if (intB > intA)
-                    return 1;
-                return 0;
-            }
+            return MoneyChange(money, new int[] { 1, 3, 4 });
         }
     }
 }
