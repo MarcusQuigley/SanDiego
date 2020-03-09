@@ -5,12 +5,12 @@ using System.Text;
 using Xunit;
 namespace Chap1.AlgorithmicToolbox.Tests.Exercises
 {
-    public class Week4ExercisesTests
+    public class Week5ExercisesTests
     {
-        Week4Exercises sut;
-        public Week4ExercisesTests()
+        Week5Exercises sut;
+        public Week5ExercisesTests()
         {
-            sut = new Week4Exercises();
+            sut = new Week5Exercises();
         }
 
         [Theory]

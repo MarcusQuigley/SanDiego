@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chap1.AlgorithmicToolbox.Exercises
 {
-   public class Week4Exercises
+   public class Week5Exercises
     {
         public int MoneyChange(int money, int[] coins)
         {
