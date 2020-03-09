@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Chap1.AlgorithmicToolbox.Exercises
@@ -29,6 +30,27 @@ namespace Chap1.AlgorithmicToolbox.Exercises
         public int MoneyChange(int money)
         {
             return MoneyChange(money, new int[] { 1, 3, 4 });
+        }
+
+        public int[] PrimitiveCalculator(int amount)
+        {
+            List<int> operations = new List<int>();
+
+            operations.Add(amount);
+            while (amount>1)
+            {
+                if (amount % 3 == 0)
+                    amount /= 3;
+                else if(amount % 2 ==0)
+                     amount /= 2;
+                else
+                    amount -=1;
+                operations.Add(amount);
+            }
+            var result = operations.ToArray();
+                            
+            Array.Reverse(result);
+            return result;
         }
     }
 }
