@@ -22,12 +22,15 @@ namespace Chap1.AlgorithmicToolbox.Tests.Exercises
             Assert.Equal(expected, actual);
         }
         [Theory]
-        [InlineData(10, new int[] {1, 3, 9, 10})]
-        [InlineData(5, new int[] { 1, 2, 4, 5 })]
+        [InlineData(1, new int[] { 1 })]
+        [InlineData(5, new int[] { 1, 3, 4, 5 })]
+        [InlineData(96234, new int[] { 1, 3, 9, 10, 11, 22, 66, 198, 594, 1782, 5346, 16038, 16039, 32078, 96234 })]
         public void CheckPrimitiveCalculator(int money, int[] expected)
         {
             var actual = sut.PrimitiveCalculator(money);
-            Assert.Equal(expected, actual);
+
+            Assert.Equal(expected.Length-1, actual.Count);
+            Assert.Equal(expected, actual.ResultList);
         }
     }
 }
